@@ -1,0 +1,60 @@
+# https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions
+name: 'googletest action'
+description: 'Build and install googletest'
+inputs:
+  googletest_tag:
+    description: 'The tag(release version) of googletest'
+    required: true
+    default: 'release-1.11.0' # or master
+runs:
+  using: "composite"
+  steps:
+    - name: clone googletest
+      run: git clone https://github.com/google/googletest -b ${{ inputs.googletest_tag }} --depth 1
+      shell: bash
+    
+    # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-environment-variable
+    - name: Set env
+      run: echo "googletest_tag=${{ inputs.googletest_tag }}" >> $GITHUB_ENV
+      shell: bash
+    - name: Test env
+      run: echo $googletest_tag
+      shell: bash
+
+    - name: Setup Ninja
+      uses: seanmiddleditch/gha-setup-ninja@v3
+
+    - name: configure googletest
+      run: |
+        if [ "$RUNNER_OS" == "Windows" ]; then
+          cmake . -B build -T v143,host=x64 -A x64 -DCMAKE_INSTALL_PREFIX="$GITHUB_WORKSPACE/artifacts/googletest/${{ inputs.googletest_tag }}/windows-x64" -DBUILD_GMOCK=OFF -Dgtest_force_shared_crt=ON
+        elif [ "$RUNNER_OS" == "Linux" ]; then
+          cmake . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/artifacts/googletest/${{ inputs.googletest_tag }}/linux-x64 -DCMAKE_BUILD_TYPE=Release -DBUILD_GMOCK=OFF -DCMAKE_POSITION_INDEPENDENT_CODE=ON
+        elif [ "$RUNNER_OS" == "macOS" ]; then
+          cmake . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/artifacts/googletest/${{ inputs.googletest_tag }}/mac-x64 -DCMAKE_BUILD_TYPE=Release -DBUILD_GMOCK=OFF -DCMAKE_POSITION_INDEPENDENT_CODE=ON
+        fi
+      working-directory: googletest
+      shell: bash
+
+    - name: build googletest
+      run: |
+        if [ "$RUNNER_OS" == "Windows" ]; then
+          cmake --build . --config Release
+        else
+          cmake --build .
+        fi
+      working-directory: googletest/build
+      shell: bash
+
+    - name: install googletest
+      run: cmake --install . --config Release
+      working-directory: googletest/build
+      shell: bash
+
+    - name: clean up
+      run: rm -R googletest
+      shell: bash
+
+branding:
+  icon: activity
+  color: gray-dark

@@ -31,9 +31,40 @@ jobs:
       # Build your program with the given configuration
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
-    - name: Test
-      working-directory: ${{github.workspace}}/build
-      # Execute tests defined by the CMake configuration..
-      # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
-      run: ctest -C ${{env.BUILD_TYPE}}
+    - name: Install googletest
+      uses: ./
+      with:
+        googletest_tag: 'release-1.11.0'
+
+    - name: List environment variables
+      run: env
+      if: runner.os != 'Windows'
+
+    - name: configure test
+      run: |
+        if [ "$RUNNER_OS" == "Windows" ]; then
+          cmake -T v143,host=x64 -A x64 . -B build
+        else
+          cmake -DCMAKE_BUILD_TYPE=Release . -B build
+        fi
+      working-directory:
+      shell: bash
+    - name: build test
+      run: |
+        if [ "$RUNNER_OS" == "Windows" ]; then
+          cmake --build . --config Release
+        else
+          cmake --build .
+        fi
+      working-directory: build
+      shell: bash
+    - name: run test
+      run: |
+        if [ "$RUNNER_OS" == "Windows" ]; then
+          ./tests.exe
+        else
+          ./tests
+        fi
+      working-directory: build
+      shell: bash
 

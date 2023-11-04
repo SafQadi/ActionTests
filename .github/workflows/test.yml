@@ -48,7 +48,7 @@ jobs:
       - name: run test
         run: |
           if [ "$RUNNER_OS" == "Windows" ]; then
-            ./tests.exe
+            ./Release/tests.exe
           else
             ./tests
           fi

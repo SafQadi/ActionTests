@@ -48,9 +48,9 @@ jobs:
       - name: run test
         run: |
           if [ "$RUNNER_OS" == "Windows" ]; then
-            ./Release/testbed.exe
+            ./Release/tests.exe
           else
-            ./testbed
+            ./tests
           fi
         working-directory: build
         shell: bash

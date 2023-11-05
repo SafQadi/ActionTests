@@ -16,9 +16,10 @@
 class Testme : public testing::Test {
  protected:
   void SetUp() override {
+    matho tst;
   }
 };
 
 TEST_F(Testme, sumoTest) {
-  EXPECT_EQ(sumo(2U, 5U), 7U);
+  EXPECT_EQ(tst.sumo(2U, 5U), 7U);
 }

@@ -1,6 +1,19 @@
-  #ifndef MATHO_HPP
-  #define MATHO_HPP
+#ifndef MATHO_HPP
+#define MATHO_HPP
 
-  int sumo(int a, int b);  // Function prototype, its declaration
+class matho
+{
+public:
+    int sumo(int a, int b);;
 
-  #endif
+private:
+    int x;
+    int y;
+};
+
+int matho::sumo(int a, int b)
+{
+  return a + b;
+}
+
+#endif

@@ -3,7 +3,8 @@
 
 int main()
 {
-  auto ref = sumo(5, 3);
+  matho tet;
+  auto ref = tet.sumo(5, 3);
   std::cout << "Hello world\n";
   std::cout << "ref: " << ref << std::endl;
 }

@@ -14,9 +14,11 @@
 
 
 class Testme : public testing::Test {
+ public:
+    matho tst;
+    
  protected:
   void SetUp() override {
-    matho tst;
   }
 };
 

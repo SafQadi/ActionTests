@@ -1,5 +1,5 @@
 
-int sumo(int, int);
+#include "matho.hpp"
 
 int sumo(int a, int b)
 {

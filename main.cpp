@@ -1,5 +1,5 @@
 #include <iostream>
-#include "matho.cpp"
+#include "matho.hpp"
 
 int main()
 {

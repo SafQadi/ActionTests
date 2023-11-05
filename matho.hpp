@@ -11,4 +11,9 @@ private:
     int y;
 };
 
+int matho::sumo(int a, int b)
+{
+  return a + b;
+}
+
 #endif

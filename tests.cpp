@@ -1,4 +1,5 @@
 #include "gtest/gtest.h"
+#include "main.hpp"
 
 // TEST(MathTest, Plus)
 // {
@@ -11,10 +12,6 @@
 //     return RUN_ALL_TESTS();
 // }
 
-int sumo(int a, int b)
-{
-  return a + b;
-}
 
 class Testme : public testing::Test {
  protected:
@@ -23,5 +20,5 @@ class Testme : public testing::Test {
 };
 
 TEST_F(Testme, sumoTest) {
-  EXPECT_EQ(sumo(2U, 5U), 7);
+  EXPECT_EQ(sumo(2U, 5U), 7U);
 }

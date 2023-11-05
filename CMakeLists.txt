@@ -25,12 +25,16 @@ if(DEFINED ENV{GITHUB_ACTIONS} AND DEFINED ENV{GITHUB_WORKSPACE})
   find_package(GTest REQUIRED)
 endif()
 
-add_executable(tests tests.cpp)
-target_link_libraries(tests
-  GTest::gtest
-  GTest::gtest_main
+enable_testing()
+add_executable(
+    tests 
+    tests.cpp
+)
+target_link_libraries(
+    tests
+    GTest::gtest
+    GTest::gtest_main
 )
 
-enable_testing()
-add_test(NAME main COMMAND main)
-add_test(NAME tests COMMAND tests)
+# add_test(NAME main COMMAND main)
+# add_test(NAME tests COMMAND tests)

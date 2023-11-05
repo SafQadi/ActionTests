@@ -13,15 +13,15 @@
 // }
 
 
-class Testme : public testing::Test {
+class mathoTest : public testing::Test {
  public:
     matho tst;
-    
+
  protected:
   void SetUp() override {
   }
 };
 
-TEST_F(Testme, sumoTest) {
+TEST_F(mathoTest, sumoTest) {
   EXPECT_EQ(tst.sumo(2U, 5U), 7U);
 }

@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "main.hpp"
+#include "matho.hpp"
 
 // TEST(MathTest, Plus)
 // {

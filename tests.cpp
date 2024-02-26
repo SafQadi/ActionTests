@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
 #include "matho.hpp"
 
-// TEST(MathTest, Plus)
+// TEST(MathTest, Plus) test template
 // {
 //     EXPECT_EQ(2 + 2, 4);
 // }
